@@ -1,0 +1,43 @@
+<template>
+    <lightning-modal-header label="Configure S3 Bundle"></lightning-modal-header>
+    <lightning-modal-body>
+        <lightning-card title="Region Product Selection">
+        <div class="slds-m-around_medium">
+            <lightning-accordion active-section-name={activeSections} allow-multiple-sections-open>
+                <lightning-accordion-section name="A" label="Select Products">
+                    <lightning-combobox
+                    label="Product"
+                    value={value}
+                    placeholder="Select Product"
+                    options={products} onchange={handleProductSelection}></lightning-combobox>
+                    <template for:each={selectedProductpills} for:item="product">
+                        <lightning-pill label={product} name={product} key={product} onremove={handleRemovalProduct}></lightning-pill>
+                    </template> 
+                </lightning-accordion-section>
+                <lightning-accordion-section name="B" label="Select Region">
+                    <lightning-combobox
+                    label="Region"
+                    value={value}
+                    placeholder="Select Region"
+                    options={regions} onchange={handleRegionSelection}></lightning-combobox>
+                    <template for:each={selectedRegions} for:item="pill">
+                        <lightning-pill label={pill} name={pill} key={pill} onremove={handleRemovalRegion}></lightning-pill>
+                    </template>
+                </lightning-accordion-section>
+                <lightning-accordion-section name="C" label="Selected Product">
+                   <lightning-datatable 
+                    key-field="key"
+                    data={quoteLineItems}
+                    hide-checkbox-column
+                    suppress-bottom-bar
+                    columns={columns}></lightning-datatable>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </div>
+    </lightning-card>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label="Cancel" onclick={handleClose}></lightning-button>
+        <lightning-button variant="brand" label="Save" onclick={handleSave}></lightning-button>
+    </lightning-modal-footer>
+</template>
